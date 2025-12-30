@@ -2,6 +2,9 @@ import express from 'express'
 import mongoose from 'mongoose'
 import Product from './models/product.models.ts'
 import router from './routes/product.route.ts'
+import dotenv from 'dotenv'
+
+dotenv.config()
 
 const app = express()
 
@@ -9,7 +12,9 @@ app.use(express.json())
 app.use(express.urlencoded({extended: false}))
 app.use(router)
 
-mongoose.connect('mongodb+srv://Elvis_Node:Vicsron218*@nodeproject.t7utwbj.mongodb.net/Node-API?appName=NodeProject')
+const ApiDatabase: string | undefined = process.env.API_DATABASE_URL
+
+mongoose.connect(`${ApiDatabase}`)
     .then(() => {
         console.log('Connected to DataBase')
         app.listen(3400, () => {
