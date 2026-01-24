@@ -1,7 +1,7 @@
 import express from 'express'
 import mongoose from 'mongoose'
-import Product from './models/product.models.ts'
-import router from './routes/product.route.ts'
+import Product from './src/models/product.models.ts'
+import router from './routes/routes.ts'
 import dotenv from 'dotenv'
 
 dotenv.config()

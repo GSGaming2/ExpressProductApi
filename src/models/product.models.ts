@@ -1,6 +1,16 @@
+import { ReadPreference } from "mongodb";
 import mongoose from "mongoose";
 
-const ProductSchema = new mongoose.Schema({
+export interface Product {
+    name: string,
+    description: string,
+    quantity: number,
+    price: number,
+    image: string
+}
+
+
+const ProductSchema = new mongoose.Schema<Product>({
     name: {
         type: String,
         required: [true, 'Product name is required']
