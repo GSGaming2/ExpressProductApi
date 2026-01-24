@@ -1,7 +1,7 @@
 import express from 'express'
 import type { Request, Response } from 'express'
 import Product from '../src/models/product.models.ts'
-
+import { uploadToCloudinary } from '../src/utils/uploadToCloudinary.ts'
 
 const getProducts = async (req: Request, res: Response) => {
     try {
@@ -24,7 +24,18 @@ const getProduct = async (req: Request, res: Response) => {
 
 const createProduct = async (req: Request, res: Response) => {
     try {
-        const product = await Product.create(req.body)
+        const {name, description, price} = req.body
+        let imageUrl: string | undefined
+
+        if (req.file) {
+            imageUrl = await uploadToCloudinary(req.file.buffer);
+        }
+        const product = await Product.create({
+            name, 
+            description, 
+            price, 
+            image: imageUrl})
+            
         res.status(201).send(product)
     } catch (error) {
         res.status(500).send(error)
