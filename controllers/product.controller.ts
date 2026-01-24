@@ -1,6 +1,7 @@
 import express from 'express'
 import type { Request, Response } from 'express'
-import Product from '../models/product.models.ts'
+import Product from '../src/models/product.models.ts'
+
 
 const getProducts = async (req: Request, res: Response) => {
     try {
